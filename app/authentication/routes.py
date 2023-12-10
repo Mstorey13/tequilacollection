@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 # imports for flask login 
 from flask_login import login_user, logout_user, LoginManager, current_user, login_required
 
-auth = Blueprint('auth', __name__, template_folder='auth_templates')
+auth = Blueprint('auth', __name__, template_folder='authentication_templates')
 
 @auth.route('/signup', methods = ['GET', 'POST'])
 def signup():
@@ -43,7 +43,7 @@ def signin():
             logged_user = User.query.filter(User.email == email).first()
             if logged_user and check_password_hash(logged_user.password, password):
                 login_user(logged_user)
-                flash('Login Successful! Welcome to the tequila collection!', 'auth-sucess')
+                flash('Login Successful! Welcome to the Tequila Collection!', 'auth-sucess')
                 return redirect(url_for('site.profile'))
             else:
                 flash('ERROR: Auth has failed', 'auth-failed')
