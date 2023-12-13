@@ -70,9 +70,9 @@ class Collection(db.Model):
     def set_id(self):
         return (secrets.token_urlsafe())
     
-    class CollectionSchema(ma.Schema):
-        class Meta:
-            fields = ['id', 'tequila_name', 'type', 'abv', 'region']
+class CollectionSchema(ma.Schema):
+    class Meta:
+        fields = ['id', 'tequila_name', 'type', 'abv', 'region']
 
-    collection_schema = CollectionSchema()
-    collections_schema = CollectionSchema(many=True)
+collection_schema = CollectionSchema()
+collections_schema = CollectionSchema(many=True)

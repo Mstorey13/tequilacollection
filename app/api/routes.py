@@ -8,7 +8,7 @@ api = Blueprint('api',__name__, url_prefix='/api')
 def getdata():
     return {'yee': 'haw'}
 
-@api.route('/collections', methods = ['POST'])
+@api.route('/collection', methods = ['POST'])
 @token_required
 def create_collection(current_user_token):
     tequila_name = request.json['tequila_name']
@@ -27,7 +27,7 @@ def create_collection(current_user_token):
     response = collection_schema.dump(collection)
     return jsonify(response)
 
-@api.route('/collections', methods = ['GET'])
+@api.route('/collection', methods = ['GET'])
 @token_required
 def get_collectopm(current_user_token):
     a_user = current_user_token.token
@@ -35,7 +35,7 @@ def get_collectopm(current_user_token):
     response = collections_schema.dump(collections)
     return jsonify(response)
 
-@api.route('/collections/<id>', methods = ['GET'])
+@api.route('/collection/<id>', methods = ['GET'])
 @token_required
 def get_collection_two(current_user_token, id):
     fan = current_user_token.token
@@ -46,7 +46,7 @@ def get_collection_two(current_user_token, id):
     else:
         return jsonify({"message": "Valid Token Required"}),401
 
-@api.route('/collections/<id>', methods = ['POST','PUT'])
+@api.route('/collection/<id>', methods = ['POST', 'PUT'])
 @token_required
 def update_collection(current_user_token,id):
     collection = Collection.query.get(id) 
@@ -60,8 +60,7 @@ def update_collection(current_user_token,id):
     response = collection_schema.dump(collection)
     return jsonify(response)
 
-
-@api.route('/collections/<id>', methods = ['DELETE'])
+@api.route('/collection/<id>', methods = ['DELETE'])
 @token_required
 def delete_collection(current_user_token, id):
     collection = Collection.query.get(id)
