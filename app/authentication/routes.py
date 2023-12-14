@@ -42,7 +42,7 @@ def signin():
             logged_user = User.query.filter(User.email == email).first()
             if logged_user and check_password_hash(logged_user.password, password):
                 login_user(logged_user)
-                flash('Login Successful! Welcome to the Tequila Collection!', 'auth-sucess')
+                flash('Login Successful! Welcome to your Car Collection!', 'auth-sucess')
                 return redirect(url_for('site.home'))
             else:
                 flash('ERROR: Auth has failed', 'auth-failed')

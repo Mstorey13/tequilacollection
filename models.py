@@ -50,29 +50,29 @@ class User(db.Model, UserMixin):
 
 class Collection(db.Model):
     id = db.Column(db.String, primary_key = True)
-    tequila_name = db.Column(db.String(150), nullable = False)
-    type = db.Column(db.String(200))
-    abv = db.Column(db.String(20))
-    region = db.Column(db.String(200))
+    car_name = db.Column(db.String(150), nullable = False)
+    make = db.Column(db.String(200))
+    model = db.Column(db.String(20))
+    year = db.Column(db.String(200))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self,tequila_name,type,abv,region,user_token, id = ''):
+    def __init__(self, car_name, make, model, year, user_token, id = ''):
         self.id = self.set_id()
-        self.tequila_name = tequila_name
-        self.type = type
-        self.abv = abv
-        self.region = region
+        self.car_name = car_name
+        self.make = make
+        self.model = model
+        self.year = year
         self.user_token = user_token
 
     def __repr__(self):
-        return f'The following tequila has been added to the collection: {self.tequila_name}'
+        return f'The following car has been added to the collection: {self.car_name}'
     
     def set_id(self):
         return (secrets.token_urlsafe())
     
 class CollectionSchema(ma.Schema):
     class Meta:
-        fields = ['id', 'tequila_name', 'type', 'abv', 'region']
+        fields = ['id', 'car_name', 'make', 'model', 'year']
 
 collection_schema = CollectionSchema()
 collections_schema = CollectionSchema(many=True)

@@ -11,15 +11,15 @@ def getdata():
 @api.route('/collection', methods = ['POST'])
 @token_required
 def create_collection(current_user_token):
-    tequila_name = request.json['tequila_name']
-    type = request.json['type']
-    abv = request.json['abv']
-    region = request.json['region']
+    car_name = request.json['car_name']
+    make = request.json['make']
+    model = request.json['model']
+    year = request.json['year']
     user_token = current_user_token.token
 
     print(f'BIG TESTER: {current_user_token.token}')
 
-    collection = Collection(tequila_name, type, abv, region, user_token = user_token )
+    collection = Collection(car_name, make, model, year, user_token = user_token )
 
     db.session.add(collection)
     db.session.commit()
@@ -29,7 +29,7 @@ def create_collection(current_user_token):
 
 @api.route('/collection', methods = ['GET'])
 @token_required
-def get_collectopm(current_user_token):
+def get_collection(current_user_token):
     a_user = current_user_token.token
     collections = Collection.query.filter_by(user_token = a_user).all()
     response = collections_schema.dump(collections)
@@ -50,10 +50,10 @@ def get_collection_two(current_user_token, id):
 @token_required
 def update_collection(current_user_token,id):
     collection = Collection.query.get(id) 
-    collection.tequila_name = request.json['tequila_name']
-    collection.type = request.json['type']
-    collection.abv = request.json['abv']
-    collection.region = request.json['region']
+    collection.car_name = collection.json['car_name']
+    collection.make = collection.json['make']
+    collection.model = collection.json['model']
+    collection.year = collection.json['year']
     collection.user_token = current_user_token.token
 
     db.session.commit()
